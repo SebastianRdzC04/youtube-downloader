@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: .
+    container_name: youtube-downloader-prod
+    restart: unless-stopped
+    ports:
+      - "50750:8000"
+    env_file:
+      - .env
+    volumes:
+      - downloads_tmp:/tmp/downloads
+    # No bind-mount of app/ in prod — image is the source of truth.
+
+volumes:
+  downloads_tmp:
