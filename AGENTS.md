@@ -102,6 +102,7 @@ youtube-downloader/
 3. **yt-dlp returns a list when downloading playlists, a single item for videos** — the runner must handle both.
 4. **Long videos / playlists block the API** — that's why jobs are async; POST returns immediately, poll for status.
 5. **YouTube rate limits unauthenticated downloads** — if 429, mount a `cookies.txt` from a logged-in browser export.
+6. **Pin `yt-dlp>=2026.08.19` minimum** — versions older than mid-2026 get `The page needs to be reloaded.` from YouTube because Google changed the player client API. Confirmed during initial test (2025.01.15 broke; 2026.08.19 worked). Always `yt-dlp -U` before troubleshooting.
 
 ## Verification recipe
 
