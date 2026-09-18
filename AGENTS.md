@@ -5,7 +5,7 @@
 ## Identity
 
 - **Name**: `youtube-downloader`
-- **Purpose**: Download YouTube audio/video (single or playlist) and push to Nextcloud (`devastation/descagas/musica/`).
+- **Purpose**: Download YouTube audio/video (single or playlist) and push to Nextcloud (`Devastation/sebas/descagas/musica/` — the capital-D shared folder visible to both `devas` and `SebasDevRC`).
 - **Owner**: Sebas (account `devas` on `nube.devas.sbs`).
 - **Repo**: `github.com/SebastianRdzC04/youtube-downloader` (public).
 - **Two-folder convention**: edit in `~/develop/youtube-downloader`, prod clone at `~/proyectos/youtube-downloader`. Never edit prod directly.
@@ -58,7 +58,7 @@ POST /downloads
     ↓
 [ 2. ffmpeg converts (if mp3) or stays as mp4 ]
     ↓
-[ 3. WebDAV PUT to Nextcloud: devastation/descagas/musica/<playlist-or-title>/<file> ]
+[ 3. WebDAV PUT to Nextcloud: Devastation/sebas/descagas/musica/<playlist-or-title>/<file> ]
     ↓
 [ 4. Job marked done with file list + sizes ]
 ```
@@ -103,6 +103,7 @@ youtube-downloader/
 4. **Long videos / playlists block the API** — that's why jobs are async; POST returns immediately, poll for status.
 5. **YouTube rate limits unauthenticated downloads** — if 429, mount a `cookies.txt` from a logged-in browser export.
 6. **Pin `yt-dlp>=2026.08.19` minimum** — versions older than mid-2026 get `The page needs to be reloaded.` from YouTube because Google changed the player client API. Confirmed during initial test (2025.01.15 broke; 2026.08.19 worked). Always `yt-dlp -U` before troubleshooting.
+7. **Nextcloud WebDAV paths are CASE-SENSITIVE — `Devastation/` ≠ `devastation/` (NEW, 2026-09-18).** The shared folder between `devas` and `SebasDevRC` is `Devastation/` with a capital D. If you put `devastation/` (lowercase) in `NEXTCLOUD_BASE_DIR`, the bot creates a SEPARATE folder that only `devas` can see, and your downloads disappear from the shared view. The fix is one line in `.env`: `NEXTCLOUD_BASE_DIR=Devastation/sebas/descagas/musica`. To recover files that already went to the wrong folder, use WebDAV `MOVE` (it works cross-folder, returns 201) and `DELETE` on the empty directories.
 
 ## Verification recipe
 

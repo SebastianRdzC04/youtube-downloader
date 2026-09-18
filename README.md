@@ -26,12 +26,14 @@ Async YouTube downloader (audio MP3 / video MP4) → upload to Nextcloud via Web
 ## Destination on Nextcloud
 
 ```
-devastation/descagas/musica/<playlist-or-video-title>/<n> - <title>.<ext>
+Devastation/sebas/descagas/musica/<playlist-or-video-title>/<n> - <title>.<ext>
 ```
 
-If the URL is a single video: `devastation/descagas/musica/<title>.<ext>`.
+If the URL is a single video: `Devastation/sebas/descagas/musica/<title>.<ext>`.
 
-All files are private (visible only to the `devas` Nextcloud account).
+**IMPORTANT (case-sensitive!):** The shared folder is `Devastation/` (capital D), NOT `devastation/` (lowercase). Nextcloud on Linux is case-sensitive in WebDAV — `devas/Devastation/` is the shared folder visible to both `devas` and `SebasDevRC`, while `devas/devastation/` is a separate, private folder only the bot account can see. The `.env` must use the capital-D path. Confirmed during the 2026-09-18 first playlist download (29 cumbias initially went to `devastation/` lowercase and had to be moved with WebDAV `MOVE` to `Devastation/`).
+
+All files are visible to `devas` (bot account) and to `SebasDevRC` (your personal account) via the share on `Devastation/`.
 
 ## Run
 
@@ -54,9 +56,9 @@ Copy `.env.example` → `.env` and fill in Nextcloud credentials.
 
 ```bash
 NEXTCLOUD_URL=https://nube.devas.sbs
-NEXTCLOUD_USER=bot-ia
+NEXTCLOUD_USER=devas
 NEXTCLOUD_PASS=<app-password>
-NEXTCLOUD_BASE_DIR=devastation/descagas/musica
+NEXTCLOUD_BASE_DIR=Devastation/sebas/descagas/musica  # capital D — shared folder
 API_PORT=50700
 ```
 
